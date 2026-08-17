@@ -11,6 +11,7 @@ Repository for CS3.301 (Operating Systems and Networks) Mini Project 1.
 This repository currently consists of my work in progress for the POSIX C Shell and setting up the overall repo.
 
 - Current work:- Beginning Implementation of C Shell baseline architecture for Parts A - C.
+- Test Script:- Checking for compilation using WSL and make
 
 ### Current Primary Goals (Part A)
 
@@ -30,7 +31,11 @@ This repository currently consists of my work in progress for the POSIX C Shell 
 mini-project1/
 ├── c-shell/
 │   ├── src/
+│   |   ├── main.c
+│   |
 │   ├── include/
+│   |   ├── shell.h
+│   |
 │   └── Makefile
 ├── xv6/
 │   ├── user/
