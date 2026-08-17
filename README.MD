@@ -18,7 +18,7 @@ This repository currently consists of my work in progress for the POSIX C Shell 
 
 - `[x]` A1 - Shell Prompt: Dynamic prompt showing <user@host:path>, treating the initial launch directory as home (~).
 - `[x]` A2 - User Input: Basic REPL loop consuming input using getline(), stripping newlines, handling Ctrl+D, and re-prompting.
-- `[ ]` A3 - Lexer & Input Syntax Parsing:
+- `[x]` A3 - Lexer & Input Syntax Parsing:
   - Lexer: Tokenize input into operators (`|`, `&`, `;`, `<`, `>`, `>>`) and `WORD` tokens using maximal munch. Handle single/double quotes and backslash escapes.
   - Grammar Parser: Validate token sequences against the right-linear grammar (`LINE`, `CMD`, `TGT`, `ARG`, `BG`).
   - Error Handling: Print `cshell: invalid syntax` for unclosed quotes, trailing backslashes, or grammar rule violations.
@@ -33,9 +33,13 @@ mini-project1/
 │   ├── src/
 │   |   ├── main.c
 │   |   └── prompt.c
+│   |   └── lexer.c
+│   |   └── parser.c
 │   ├── include/
 │   |   ├── shell.h
 │   |   └── prompt.h
+│   |   └── lexer.h
+│   |   └── parser.h
 │   └── Makefile
 ├── xv6/
 │   ├── user/
@@ -77,6 +81,9 @@ Focusing exclusively on **Mid-Submission** requirements for Parts A–C.
 ### Part A2: User Input
 - Line-by-line input consumption using `getline()`.
 - Strips trailing newlines, ignores empty inputs, and exits on `Ctrl+D`.
+
+### Part A3: Input Lexing and Parsing
+- To do.
 
 ## Setup & Compiling ( Pending)
 

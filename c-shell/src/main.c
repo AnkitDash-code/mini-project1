@@ -1,5 +1,7 @@
 #include "shell.h"
 #include "prompt.h"
+#include "lexer.h"
+#include "parser.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,6 +26,15 @@ int main(void) {
         if (code[0] == '\0'){
             continue;
         }
+
+        TokenStream stream = {NULL, NULL};
+
+        if (tokenize_line(code, &stream) != 0 || validate_grammar(&stream) != 0) {
+            printf("cshell: invalid syntax\n");
+            free_tokens(&stream);
+            continue;
+        }
+        free_tokens(&stream);
     }
 
     free (code);

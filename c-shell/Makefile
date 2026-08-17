@@ -11,7 +11,6 @@ SRC_DIR = src
 INC_DIR = include
 TARGET = shell.out
 
-# Automatically locate all .c files in src/
 SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c, %.o, $(SRCS))
 
