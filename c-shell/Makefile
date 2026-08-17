@@ -1,15 +1,17 @@
 CC = gcc
-gcc -std=c23 \
-  -D_POSIX_C_SOURCE=200809L \
-  -D_XOPEN_SOURCE=700 \
-  -Wall -Wextra -Werror \
-  -Wno-unused-parameter \
-  -fno-asm \
-  your_file.c
+CFLAGS = -std=c23 \
+         -D_POSIX_C_SOURCE=200809L \
+         -D_XOPEN_SOURCE=700 \
+         -Wall -Wextra -Werror \
+         -Wno-unused-parameter \
+         -fno-asm \
+         -Iinclude
 
 SRC_DIR = src
+INC_DIR = include
 TARGET = shell.out
 
+# Automatically locate all .c files in src/
 SRCS = $(wildcard $(SRC_DIR)/*.c)
 OBJS = $(patsubst $(SRC_DIR)/%.c, %.o, $(SRCS))
 
