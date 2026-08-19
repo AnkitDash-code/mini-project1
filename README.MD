@@ -11,17 +11,13 @@ I have named it as Dash Shell.
 
 This repository currently consists of my work in progress for the POSIX C Shell and setting up the overall repo.
 
-- Current work:- Implemented dynamic prompt display (A1) and basic user input loop (A2).
+- Current work:- Implemented dynamic prompt display (A1), basic user input loop (A2) and Lexer & Input Syntax Parsing (A3). 
+
 - Test Script:- Checking for compilation using WSL and make
 
-### Current Primary Goals (Part A)
+### Current Primary Goals (Part B)
 
-- `[x]` A1 - Shell Prompt: Dynamic prompt showing <user@host:path>, treating the initial launch directory as home (~).
-- `[x]` A2 - User Input: Basic REPL loop consuming input using getline(), stripping newlines, handling Ctrl+D, and re-prompting.
-- `[x]` A3 - Lexer & Input Syntax Parsing:
-  - Lexer: Tokenize input into operators (`|`, `&`, `;`, `<`, `>`, `>>`) and `WORD` tokens using maximal munch. Handle single/double quotes and backslash escapes.
-  - Grammar Parser: Validate token sequences against the right-linear grammar (`LINE`, `CMD`, `TGT`, `ARG`, `BG`).
-  - Error Handling: Print `cshell: invalid syntax` for unclosed quotes, trailing backslashes, or grammar rule violations.
+- Begin implementation of built-in commands (`hop`, `reveal`, `log`, etc.).
 
 
 
@@ -57,7 +53,7 @@ Focusing exclusively on **Mid-Submission** requirements for Parts A–C.
 | Milestone / Sub-Task | Target Date | Status |
 | :--- | :---: | :---: |
 | Repo setup & directory structure | Aug 17 | `[x]` |
-| Custom prompt display & command loop (Part A) | Aug 18 | `[2/3]` |
+| Custom prompt display & command loop (Part A) | Aug 18 | `[3/3]` |
 | Built-in commands & process execution (Part B) | Aug 19 | `[ ]` |
 | Input/Output redirection `<` `>` `>>` & Piping `\|` (Part C) | Aug 20 | `[ ]` |
 | Sanity testing & Mid-Submission push | Aug 22 | `[ ]` |
@@ -70,8 +66,18 @@ Focusing exclusively on **Mid-Submission** requirements for Parts A–C.
 
 - **`include/shell.h`**: Global header file providing core standard library headers (`stdio.h`, `stdlib.h`, `unistd.h`) needed across the shell system.
 - **`include/prompt.h`**: Header file declaring function prototypes for prompt state initialization (`capture_prompt`) and prompt rendering (`show_prompt`).
+
+- **`include/lexer.h`**: Header file defining token enumerations (`TokenType`), token node structures (`Token`, `TokenStream`), and lexer function declarations.
+- **`include/parser.h`**: Header file defining parser states (`ParserState`) and grammar validation interface.
+
 - **`src/prompt.c`**: Handles User prompt generation. Stores the initial launch directory as `home_dir`, retrieves system information (`USER`, `gethostname`), calculates relative paths against `home_dir` to substitute `~`, and flushes standard output to ensure immediate rendering.
-- **`src/main.c`**: Implements the shell's Read-Eval-Print Loop (REPL). Calls initialization routines, prompts for user input, processes input streams using `getline()`, strips trailing newlines with `strcspn()`, handles empty input lines, and handles `Ctrl+D` (EOF) exits.
+
+* **`src/lexer.c`**: Implements character scanning, tokenization, maximal munch matching (e.g., `>>`), quote stripping (`"..."`, `'...'`), backslash escape processing, and memory management for dynamic token streams.
+
+* **`src/parser.c`**: Implements a 5-state Deterministic Finite Automaton (DFA) to validate token streams against the defined right-linear grammar.
+
+* **`src/main.c`**: Implements the shell's Read-Eval-Print Loop (REPL). Prompts for user input, processes lines via `getline()`, triggers the lexer and parser pipeline, prints `cshell: invalid syntax` on syntax failures, and frees allocated token memory.
+
 - **`Makefile`**: Automates compilation using `gcc` configured with `-std=c23`, strict warnings (`-Wall -Wextra -Werror`), POSIX compatibility macros, and compiles source files into `shell.out`.
 
 ### Part A1: Shell Prompt
@@ -83,7 +89,10 @@ Focusing exclusively on **Mid-Submission** requirements for Parts A–C.
 - Strips trailing newlines, ignores empty inputs, and exits on `Ctrl+D`.
 
 ### Part A3: Input Lexing and Parsing
-- To do.
+
+* **Lexer Tokenizer:** Scans input lines into distinct tokens (`TOKEN_WORD`, `TOKEN_PIPE`, `TOKEN_AMP`, `TOKEN_SEMI`, `TOKEN_LT`, `TOKEN_GT`, `TOKEN_GTGT`, `TOKEN_EOF`).
+* **Quote & Escape Handling:** Preserves literal strings inside single quotes, processes escaped quotes/backslashes inside double quotes, and removes unquoted backslashes. Rejects lines with unclosed quotes or trailing backslashes.
+* **Grammar Validation:** Uses a 5-state DFA (`STATE_LINE`, `STATE_ARG`, `STATE_CMD`, `STATE_TGT`, `STATE_BG`) to enforce valid sequence structures and print `cshell: invalid syntax` on grammar violations.
 
 ## Setup & Compiling ( Pending)
 
