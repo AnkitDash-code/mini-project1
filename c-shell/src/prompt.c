@@ -29,7 +29,7 @@ void show_prompt(void) {
 
     size_t len = strlen(home_dir);
 
-    if (len > 0 && strncmp(cwd, home_dir, len) == 0) {
+    if (len > 0 && strncmp(cwd, home_dir, len) == 0 && (cwd[len] == '\0' || cwd[len] == '/')) {
         printf("<%s@%s:~%s> ", user, host, cwd + len);
     } else {
         printf("<%s@%s:%s> ", user, host, cwd);

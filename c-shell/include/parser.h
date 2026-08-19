@@ -1,3 +1,4 @@
+#ifndef PARSER_H
 #define PARSER_H
 
 #include "lexer.h"
@@ -11,3 +12,6 @@ typedef enum {
 } ParserState;
 
 int validate_grammar(const TokenStream *stream);
+
+#endif
+
