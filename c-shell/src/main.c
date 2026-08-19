@@ -2,6 +2,7 @@
 #include "prompt.h"
 #include "lexer.h"
 #include "parser.h"
+#include "builtins.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,6 +34,13 @@ int main(void) {
             printf("cshell: invalid syntax\n");
             free_tokens(&stream);
             continue;
+        }
+        else {
+
+           int check =  exec_builtin(&stream);
+           if ( check == -1) {
+            printf("Command Not implemented Yet\n");
+           }
         }
         free_tokens(&stream);
     }
