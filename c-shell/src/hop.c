@@ -1,6 +1,5 @@
 #include "builtins.h"
 #include <unistd.h>
-#include <limits.h>
 #define MAX_ENTRIES 100
 
 typedef enum {
@@ -19,7 +18,7 @@ typedef struct {
 // Forced to use static as the data needs to persist the whole time the shell
 //  runs not just when hop 
 // is called
-static char prev_cwd[PATH_MAX] = "";
+char prev_cwd[PATH_MAX] = "";
 static FrecencyEntry frequency_db[MAX_ENTRIES];
 static int frecency_count = 0;
 
@@ -128,7 +127,7 @@ int handle_hop(const Token *args){
 
             case TARGET_PREV:
                 if (prev_cwd[0] == '\0') {
-                    printf("No Old PWD Found\n");
+                    printf("Old PWD Not Found\n");
                 } else {
                     char target_dir[PATH_MAX];
                     strcpy(target_dir, prev_cwd);

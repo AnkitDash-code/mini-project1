@@ -54,7 +54,7 @@ Focusing exclusively on **Mid-Submission** requirements for Parts A–C.
 | :--- | :---: | :---: |
 | Repo setup & directory structure | Aug 17 | `[x]` |
 | Custom prompt display & command loop (Part A) | Aug 18 | `[3/3]` |
-| Built-in commands & process execution (Part B) | Aug 19 | `[ ]` |
+| Built-in commands & process execution (Part B) | Aug 19 | `[1/4]` |
 | Input/Output redirection `<` `>` `>>` & Piping `\|` (Part C) | Aug 20 | `[ ]` |
 | Sanity testing & Mid-Submission push | Aug 22 | `[ ]` |
 

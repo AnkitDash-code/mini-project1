@@ -7,7 +7,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <limits.h>
 #include "lexer.h"
+
+extern char prev_cwd[PATH_MAX];
 
 int exec_builtin(const TokenStream *stream);
 
